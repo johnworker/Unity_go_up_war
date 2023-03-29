@@ -4,10 +4,21 @@ using UnityEngine;
 
 namespace Herohunk
 {
+    [RequireComponent(typeof(Rigidbody2D))]
     public class Player : MonoBehaviour
     {
         [SerializeField]
         PlayerInput input;
+
+        new Rigidbody2D rigidbody;
+
+        [SerializeField]
+        float moveSpeed = 10f;
+
+        private void Awake()
+        {
+            rigidbody = GetComponent<Rigidbody2D>();
+        }
 
         private void OnEnable()
         {
@@ -23,12 +34,14 @@ namespace Herohunk
 
         void Start()
         {
+            rigidbody.gravityScale = 0f;
 
+            input.OnEnableGameplayInput();
         }
 
         private void Move(Vector2 moveInput)
         {
-            
+            Vector2 moveAmount = moveInput * moveSpeed;
         }
 
         private void StopMove()
