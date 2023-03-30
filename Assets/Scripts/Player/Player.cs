@@ -34,6 +34,7 @@ namespace Herohunk
 
         void Start()
         {
+            // 剛體.重力 = 0f;
             rigidbody.gravityScale = 0f;
 
             input.OnEnableGameplayInput();
@@ -41,12 +42,16 @@ namespace Herohunk
 
         private void Move(Vector2 moveInput)
         {
-            Vector2 moveAmount = moveInput * moveSpeed;
+            // 2維向量 移動量 = 移動輸入 * 移動速度;
+            //    Vector2 moveAmount = moveInput * moveSpeed;
+
+            // 剛體.速度 = 移動輸入 * 移動速度;
+            rigidbody.velocity = moveInput * moveSpeed;
         }
 
         private void StopMove()
         {
-            
+            rigidbody.velocity = Vector2.zero;
         }
     }
 }
