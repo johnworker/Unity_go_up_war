@@ -13,11 +13,18 @@ namespace Herohunk
         new Rigidbody2D rigidbody;
 
         [SerializeField]
-        float moveSpeed = 10f;
+        float moveSpeed = 5f;
+
+        [SerializeField]
+        float paddingX = 0.6f;
+        [SerializeField]
+        float paddingY = 0.6f;
+
 
         private void Awake()
         {
             rigidbody = GetComponent<Rigidbody2D>();
+            // Viewport.Instance 即可取得實例
         }
 
         private void OnEnable()
@@ -47,11 +54,27 @@ namespace Herohunk
 
             // 剛體.速度 = 移動輸入 * 移動速度;
             rigidbody.velocity = moveInput * moveSpeed;
+
+            StartCoroutine(MovePositionLimitCoroutine());
         }
 
         private void StopMove()
         {
+            // 剛體.速度 = 2維向量.歸零
             rigidbody.velocity = Vector2.zero;
+
+            StopCoroutine(MovePositionLimitCoroutine());
+        }
+
+        IEnumerator MovePositionLimitCoroutine()
+        {
+            while (true)
+            {
+                // 當前位置轉換 = 是口.實例.玩家移動位置方法(轉換位置);
+                transform.position = Viewport.Instance.PlayerMoveablePosition(transform.position, paddingX, paddingY);
+
+                yield return null;
+            }
         }
     }
 }
