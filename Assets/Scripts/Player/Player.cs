@@ -15,6 +15,11 @@ namespace Herohunk
         [SerializeField]
         float moveSpeed = 5f;
 
+        [SerializeField, Header("加速時間")]
+        float accelerationTime = 3f;
+        [SerializeField, Header("減速時間")]
+        float dccelerationTime = 3f;
+
         [SerializeField]
         float paddingX = 0.6f;
         [SerializeField]
@@ -55,6 +60,7 @@ namespace Herohunk
             // 剛體.速度 = 移動輸入 * 移動速度;
             rigidbody.velocity = moveInput * moveSpeed;
 
+            StartCoroutine(StarMoveCoroutine(moveInput * moveSpeed));
             StartCoroutine(MovePositionLimitCoroutine());
         }
 
@@ -64,6 +70,20 @@ namespace Herohunk
             rigidbody.velocity = Vector2.zero;
 
             StopCoroutine(MovePositionLimitCoroutine());
+        }
+
+        IEnumerator StarMoveCoroutine(Vector2 moveVelocity)
+        {
+            // 聲明本地的浮點數 t
+            float t = 0f;
+
+            while(t < accelerationTime)
+            {
+                t += Time.fixedDeltaTime / accelerationTime;
+                rigidbody.velocity = Vector2.Lerp(rigidbody.velocity, moveVelocity, t / accelerationTime);
+
+                yield return null;
+            }
         }
 
         IEnumerator MovePositionLimitCoroutine()
