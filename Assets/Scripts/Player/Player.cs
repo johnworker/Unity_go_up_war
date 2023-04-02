@@ -18,12 +18,14 @@ namespace Herohunk
         [SerializeField, Header("加速時間")]
         float accelerationTime = 3f;
         [SerializeField, Header("減速時間")]
-        float dccelerationTime = 3f;
+        float decelerationTime = 3f;
 
         [SerializeField]
         float paddingX = 0.6f;
         [SerializeField]
         float paddingY = 0.6f;
+
+        Coroutine moveCoroutine;
 
 
         private void Awake()
@@ -58,29 +60,39 @@ namespace Herohunk
             //    Vector2 moveAmount = moveInput * moveSpeed;
 
             // 剛體.速度 = 移動輸入 * 移動速度;
-            rigidbody.velocity = moveInput * moveSpeed;
+            // rigidbody.velocity = moveInput * moveSpeed;
 
-            StartCoroutine(StarMoveCoroutine(moveInput * moveSpeed));
+            if(moveCoroutine != null)
+            {
+                StopCoroutine(moveCoroutine);
+            }
+            // (移動輸入.歸一化處理 * 移動速度);
+            moveCoroutine = StartCoroutine(MoveCoroutine(accelerationTime, moveInput.normalized * moveSpeed));
             StartCoroutine(MovePositionLimitCoroutine());
         }
 
         private void StopMove()
         {
             // 剛體.速度 = 2維向量.歸零
-            rigidbody.velocity = Vector2.zero;
+            // rigidbody.velocity = Vector2.zero;
+            if (moveCoroutine != null)
+            {
+                StopCoroutine(moveCoroutine);
+            }
 
+            StartCoroutine(MoveCoroutine(decelerationTime, Vector2.zero));
             StopCoroutine(MovePositionLimitCoroutine());
         }
 
-        IEnumerator StarMoveCoroutine(Vector2 moveVelocity)
+        IEnumerator MoveCoroutine(float time, Vector2 moveVelocity)
         {
             // 聲明本地的浮點數 t
             float t = 0f;
 
-            while(t < accelerationTime)
+            while(t < time)
             {
-                t += Time.fixedDeltaTime / accelerationTime;
-                rigidbody.velocity = Vector2.Lerp(rigidbody.velocity, moveVelocity, t / accelerationTime);
+                t += Time.fixedDeltaTime / time;
+                rigidbody.velocity = Vector2.Lerp(rigidbody.velocity, moveVelocity, t / time);
 
                 yield return null;
             }
