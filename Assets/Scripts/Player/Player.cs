@@ -16,9 +16,12 @@ namespace Herohunk
         float moveSpeed = 5f;
 
         [SerializeField, Header("加速時間")]
-        float accelerationTime = 3f;
+        float accelerationTime = 0.2f;
         [SerializeField, Header("減速時間")]
-        float decelerationTime = 3f;
+        float decelerationTime = 0.2f;
+
+        [SerializeField, Header("移動旋轉角度")]
+        float moveRotationAngle = 70f;
 
         [SerializeField]
         float paddingX = 0.6f;
@@ -66,8 +69,12 @@ namespace Herohunk
             {
                 StopCoroutine(moveCoroutine);
             }
+
+            // 先聲明4元數變量
+             Quaternion moveRotation = Quaternion.Euler(-180,90 + moveRotationAngle * -moveInput.x, -90);
+
             // (移動輸入.歸一化處理 * 移動速度);
-            moveCoroutine = StartCoroutine(MoveCoroutine(accelerationTime, moveInput.normalized * moveSpeed));
+            moveCoroutine = StartCoroutine(MoveCoroutine(accelerationTime, moveInput.normalized * moveSpeed, moveRotation));
             StartCoroutine(MovePositionLimitCoroutine());
         }
 
@@ -80,11 +87,11 @@ namespace Herohunk
                 StopCoroutine(moveCoroutine);
             }
 
-            StartCoroutine(MoveCoroutine(decelerationTime, Vector2.zero));
+            StartCoroutine(MoveCoroutine(decelerationTime, Vector2.zero, Quaternion.Euler(-180, 90, -90)));
             StopCoroutine(MovePositionLimitCoroutine());
         }
 
-        IEnumerator MoveCoroutine(float time, Vector2 moveVelocity)
+        IEnumerator MoveCoroutine(float time, Vector2 moveVelocity, Quaternion moveRotation)
         {
             // 聲明本地的浮點數 t
             float t = 0f;
@@ -93,6 +100,7 @@ namespace Herohunk
             {
                 t += Time.fixedDeltaTime / time;
                 rigidbody.velocity = Vector2.Lerp(rigidbody.velocity, moveVelocity, t / time);
+                transform.rotation = Quaternion.Lerp(transform.rotation, moveRotation, t / time);
 
                 yield return null;
             }

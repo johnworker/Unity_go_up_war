@@ -256,8 +256,9 @@ MonoBehaviour:
   moveSpeed: 5
   accelerationTime: 0.2
   decelerationTime: 0.2
+  moveRotationAngle: 30
   paddingX: 0.6
-  paddingY: 0.55
+  paddingY: 0.6
 --- !u!50 &329131189
 Rigidbody2D:
   serializedVersion: 4
@@ -316,19 +317,19 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6435389010079767248, guid: 69bf9c8dfe6a9e5479d5093236b17108, type: 3}
       propertyPath: m_LocalRotation.w
-      value: 0.5019162
+      value: 0.5
       objectReference: {fileID: 0}
     - target: {fileID: 6435389010079767248, guid: 69bf9c8dfe6a9e5479d5093236b17108, type: 3}
       propertyPath: m_LocalRotation.x
-      value: -0.49807647
+      value: -0.5
       objectReference: {fileID: 0}
     - target: {fileID: 6435389010079767248, guid: 69bf9c8dfe6a9e5479d5093236b17108, type: 3}
       propertyPath: m_LocalRotation.y
-      value: -0.5019162
+      value: -0.5
       objectReference: {fileID: 0}
     - target: {fileID: 6435389010079767248, guid: 69bf9c8dfe6a9e5479d5093236b17108, type: 3}
       propertyPath: m_LocalRotation.z
-      value: 0.49807647
+      value: 0.5
       objectReference: {fileID: 0}
     - target: {fileID: 6435389010079767248, guid: 69bf9c8dfe6a9e5479d5093236b17108, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -340,7 +341,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6435389010079767248, guid: 69bf9c8dfe6a9e5479d5093236b17108, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
-      value: -90.44
+      value: -90
       objectReference: {fileID: 0}
     - target: {fileID: 6435389010079767248, guid: 69bf9c8dfe6a9e5479d5093236b17108, type: 3}
       propertyPath: m_ConstrainProportionsScale
