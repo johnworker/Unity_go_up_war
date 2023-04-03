@@ -14,6 +14,11 @@ namespace Herohunk
 
         public event UnityAction onStopMove = delegate { };
 
+        // 聲明開火事件
+        public event UnityAction onFire = delegate { };
+        // 聲明停止開火事件
+        public event UnityAction onStopFire = delegate { };
+
         InputActions inputActions;
 
         private void OnEnable()
@@ -59,6 +64,21 @@ namespace Herohunk
             if(context.phase == InputActionPhase.Canceled)
             {
                 onStopMove.Invoke();
+            }
+        }
+
+        public void OnFire(InputAction.CallbackContext context)
+        {
+            if (context.phase == InputActionPhase.Performed)
+            {
+                // 永遠不為空就不需要再做空值檢查
+                // if(OnMove != null)
+                onFire.Invoke();
+            }
+
+            if (context.phase == InputActionPhase.Canceled)
+            {
+                onStopFire.Invoke();
             }
         }
     }

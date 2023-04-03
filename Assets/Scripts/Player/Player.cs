@@ -28,6 +28,12 @@ namespace Herohunk
         [SerializeField]
         float paddingY = 0.6f;
 
+        [SerializeField, Header("子彈預置")]
+        GameObject projectile;
+
+        [SerializeField, Header("槍口")]
+        Transform muzzle;
+
         Coroutine moveCoroutine;
 
 
@@ -41,12 +47,16 @@ namespace Herohunk
         {
             input.onMove += Move;
             input.onStopMove += StopMove;
+            input.onFire += Fire;
+            input.onStopFire += StopFire;
         }
 
         private void OnDisable()
         {
             input.onMove -= Move;
             input.onStopMove -= StopMove;
+            input.onFire -= Fire;
+            input.onStopFire -= StopFire;
         }
 
         void Start()
@@ -57,6 +67,7 @@ namespace Herohunk
             input.OnEnableGameplayInput();
         }
 
+        #region 移動
         private void Move(Vector2 moveInput)
         {
             // 2維向量 移動量 = 移動輸入 * 移動速度;
@@ -116,5 +127,32 @@ namespace Herohunk
                 yield return null;
             }
         }
+        #endregion
+
+        #region 開火
+        private void Fire()
+        {
+            // StartCoroutine("FireCoroutine");
+            StartCoroutine(nameof(FireCoroutine));
+        }
+
+        private void StopFire()
+        {
+            // StopCoroutine("FireCoroutine");
+            // StopCoroutine(FireCoroutine()); // 承載傳入呼叫不會運作
+            StopCoroutine(nameof(FireCoroutine));
+        }
+
+        IEnumerator FireCoroutine()
+        {
+            // 循環生成射擊
+            while (true)
+            {
+                Instantiate(projectile, muzzle.position, Quaternion.identity);
+
+                yield return null;
+            }
+        }
+        #endregion
     }
 }
