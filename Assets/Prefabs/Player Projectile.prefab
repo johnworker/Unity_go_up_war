@@ -25,7 +25,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 363650104237199313}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: -0.217, z: -0.196}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -150,6 +150,7 @@ GameObject:
   m_Component:
   - component: {fileID: 363650104860543037}
   - component: {fileID: 363650104860543036}
+  - component: {fileID: 8388735397200055104}
   m_Layer: 0
   m_Name: Player Projectile
   m_TagString: Untagged
@@ -165,7 +166,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 363650104860542978}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0.097}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -186,8 +187,22 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dde7b791bfe01db4b9bdfe48705c94dc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  moveSpeed: 10
+  moveSpeed: 15
   moveDirection: {x: 0, y: 1}
+--- !u!114 &8388735397200055104
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 363650104860542978}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 061cad757f9af604f877b99972317e22, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  destoryGameObject: 1
+  lifetime: 3
 --- !u!1 &363650104879729503
 GameObject:
   m_ObjectHideFlags: 0
@@ -473,7 +488,7 @@ ParticleSystem:
     startSize:
       serializedVersion: 2
       minMaxState: 0
-      scalar: 1
+      scalar: 0.8
       minScalar: 1
       maxCurve:
         serializedVersion: 2

@@ -10,8 +10,6 @@ namespace Herohunk
         [SerializeField]
         PlayerInput input;
 
-        new Rigidbody2D rigidbody;
-
         [SerializeField]
         float moveSpeed = 5f;
 
@@ -33,6 +31,14 @@ namespace Herohunk
 
         [SerializeField, Header("槍口")]
         Transform muzzle;
+
+        [SerializeField, Header("間格時間設定")]
+        float fireInterval = 0.2f;
+
+        [SerializeField, Header("間格等待時間")]
+        WaitForSeconds waitForFireInterval;
+
+        new Rigidbody2D rigidbody;
 
         Coroutine moveCoroutine;
 
@@ -63,6 +69,8 @@ namespace Herohunk
         {
             // 剛體.重力 = 0f;
             rigidbody.gravityScale = 0f;
+            // 初始化 間格發射時間
+            waitForFireInterval = new WaitForSeconds(fireInterval);
 
             input.OnEnableGameplayInput();
         }
@@ -150,7 +158,7 @@ namespace Herohunk
             {
                 Instantiate(projectile, muzzle.position, Quaternion.identity);
 
-                yield return null;
+                yield return waitForFireInterval;
             }
         }
         #endregion
