@@ -22,6 +22,11 @@ public class Pool
     // 寫法3
     public GameObject Prefab => prefab;
 
+    public int Size => size;
+
+    // 運行時的尺寸
+    public int RuntimeSize => queue.Count;
+
     [SerializeField, Header("對象池預置物")]
     GameObject prefab;
 
@@ -80,7 +85,7 @@ public class Pool
     }
 
     // 聲明返回值遊戲物件 準備物件()
-    public GameObject preparedObject(Vector3 position, Quaternion rotation, Vector3 localScale)
+    public GameObject PreparedObject(Vector3 position, Quaternion rotation, Vector3 localScale)
     {
         GameObject preparedObject = AvailableObject();
 

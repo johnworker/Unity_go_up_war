@@ -29,8 +29,23 @@ namespace Herohunk
         [SerializeField, Header("子彈預置")]
         GameObject projectile;
 
-        [SerializeField, Header("槍口")]
-        Transform muzzle;
+        [SerializeField, Header("子彈預置2")]
+        GameObject projectile2;
+
+        [SerializeField, Header("子彈預置3")]
+        GameObject projectile3;
+
+        [SerializeField, Header("槍口中")]
+        Transform muzzleMiddle;
+
+        [SerializeField, Header("槍口左")]
+        Transform muzzleLeft;
+
+        [SerializeField, Header("槍口右")]
+        Transform muzzleRight;
+
+        [SerializeField, Range(0,2), Header("武器威力變量")]
+        int weaponPower = 0;
 
         [SerializeField, Header("間格時間設定")]
         float fireInterval = 0.2f;
@@ -156,7 +171,43 @@ namespace Herohunk
             // 循環生成射擊
             while (true)
             {
-                Instantiate(projectile, muzzle.position, Quaternion.identity);
+                /*
+                switch (weaponPower)
+                {
+                    case 0:
+                        Instantiate(projectile, muzzleMiddle.position, Quaternion.identity);
+                        break;
+                    case 1:
+                        Instantiate(projectile, muzzleLeft.position, Quaternion.identity);
+                        Instantiate(projectile, muzzleRight.position, Quaternion.identity);
+                        break;
+                    case 2:
+                        Instantiate(projectile, muzzleMiddle.position, Quaternion.identity);
+                        Instantiate(projectile2, muzzleLeft.position, Quaternion.identity);
+                        Instantiate(projectile3, muzzleRight.position, Quaternion.identity);
+                        break;
+                    default:
+                        break;
+                }
+                */
+
+                 switch (weaponPower)
+                {
+                    case 0:
+                        PoolManager.Release(projectile, muzzleMiddle.position, Quaternion.identity, muzzleMiddle.localPosition);
+                        break;
+                    case 1:
+                        PoolManager.Release(projectile, muzzleLeft.position, Quaternion.identity, muzzleLeft.localPosition);
+                        PoolManager.Release(projectile, muzzleRight.position, Quaternion.identity, muzzleRight.localPosition);
+                        break;
+                    case 2:
+                        PoolManager.Release(projectile, muzzleMiddle.position, Quaternion.identity, muzzleMiddle.localPosition);
+                        PoolManager.Release(projectile2, muzzleLeft.position, Quaternion.identity, muzzleLeft.localPosition);
+                        PoolManager.Release(projectile3, muzzleRight.position, Quaternion.identity, muzzleRight.localPosition);
+                        break;
+                    default:
+                        break;
+                }
 
                 yield return waitForFireInterval;
             }
