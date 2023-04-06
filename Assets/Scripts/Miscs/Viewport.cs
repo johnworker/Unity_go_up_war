@@ -56,7 +56,7 @@ namespace Herohunk
             return position;
         }
 
-        public Vector3 RandomRightHalfPosition(float paddingX, float paddingY)
+        public Vector3 RandomTopHalfPosition(float paddingX, float paddingY)
         {
             Vector3 position = Vector3.zero;
 
@@ -65,6 +65,7 @@ namespace Herohunk
 
             return position;
         }
+
         public Vector3 RandomEnemyMovePosition(float paddingX, float paddingY)
         {
             Vector3 position = Vector3.zero;

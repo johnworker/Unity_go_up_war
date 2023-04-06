@@ -312,7 +312,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   playerProjectilePools:
   - prefab: {fileID: 363650104860542978, guid: 250808e8dc9d8ea4698514bb00c61083, type: 3}
-    size: 10
+    size: 50
   - prefab: {fileID: 363650104860542978, guid: ffad86d02f026844badf84108cf77fb0, type: 3}
     size: 10
   - prefab: {fileID: 363650104860542978, guid: 7c0f4cea4faa92b4ebf0ccf58bbfe854, type: 3}
@@ -1029,6 +1029,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Enemy01
       objectReference: {fileID: 0}
+    - target: {fileID: 214778051926960383, guid: a624a0e3000461e4286965f8a65aedb6, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a624a0e3000461e4286965f8a65aedb6, type: 3}
 --- !u!1 &1716982406 stripped
@@ -1048,6 +1052,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c103e7e42e29bcd41b4001406f3a8eab, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  paddingX: 0
+  paddingY: 0
+  moveSpeed: 2
+  moveRotationAngle: 25
 --- !u!1 &2138780728
 GameObject:
   m_ObjectHideFlags: 0
