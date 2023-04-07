@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -63,6 +64,11 @@ public class PoolManager : MonoBehaviour
 
             pool.Initialize(poolParent);
         }
+    }
+
+    internal static void Release(GameObject projectile, Vector3 position)
+    {
+        throw new NotImplementedException();
     }
 
     /// <summary>
