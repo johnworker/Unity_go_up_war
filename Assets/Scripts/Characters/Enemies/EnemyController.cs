@@ -5,13 +5,25 @@ using UnityEngine;
 
 public class EnemyController : MonoBehaviour
 {
-    [SerializeField] float paddingX;
+    [Header("---- 移動 ----")]
 
-    [SerializeField] float paddingY;
+    [SerializeField, Header("內距X")] float paddingX;
 
-    [SerializeField] float moveSpeed = 2f;
+    [SerializeField, Header("內距Y")] float paddingY;
 
-    [SerializeField] float moveRotationAngle = 25f;
+    [SerializeField, Header("移動速度")] float moveSpeed = 2f;
+
+    [SerializeField, Header("移動旋轉角度")] float moveRotationAngle = 25f;
+
+    [Header("---- 開火 ----")]
+
+    [SerializeField, Header("敵人發射多個子彈")] GameObject[] projectiles;
+
+    [SerializeField, Header("開火位置")] Transform muzzle;
+
+    [SerializeField, Header("最小開火間格時間")] float minFireInterval;
+
+    [SerializeField, Header("最大開火間格時間")] float maxFireInterval;
 
     private void Awake()
     {
@@ -20,10 +32,9 @@ public class EnemyController : MonoBehaviour
     private void OnEnable()
     {
         StartCoroutine(nameof(RandomMovingCoroutine));
-
-        Vector3 v3 = new Vector3(0, -90, 90);
     }
 
+    // 敵人隨機移動協程
     IEnumerator RandomMovingCoroutine()
     {
         transform.position = Viewport.Instance.RandomEnemySpawnPosition(paddingX, paddingY);
@@ -48,6 +59,20 @@ public class EnemyController : MonoBehaviour
             }
 
             yield return null;
+        }
+    }
+
+    // 敵人隨機開火協程
+    IEnumerator RandomlyFireCoroutine()
+    {
+        // WaitForSeconds waitForRandomFireInterval = new WaitForSeconds(Random.Range(minFireInterval, maxFireInterval));
+
+        // 當(敵人對象.活動狀態)
+        while (gameObject.activeSelf)
+        {
+            // yield return waitForRandomFireInterval;
+            
+            yield return new WaitForSeconds(Random.Range(minFireInterval, maxFireInterval));
         }
     }
 }

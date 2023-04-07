@@ -859,7 +859,7 @@ MonoBehaviour:
   paddingX: 0.4
   paddingY: 0.8
   moveSpeed: 1.2
-  moveRotationAngle: 25
+  moveRotationAngle: 15
 --- !u!1 &948563519
 GameObject:
   m_ObjectHideFlags: 0
@@ -1153,7 +1153,7 @@ MonoBehaviour:
   paddingX: 0.4
   paddingY: 0.8
   moveSpeed: 1
-  moveRotationAngle: 25
+  moveRotationAngle: 15
 --- !u!1001 &1716982405
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1251,7 +1251,7 @@ MonoBehaviour:
   paddingX: 0.4
   paddingY: 0.8
   moveSpeed: 1.5
-  moveRotationAngle: 25
+  moveRotationAngle: 15
 --- !u!1 &2138780728
 GameObject:
   m_ObjectHideFlags: 0
