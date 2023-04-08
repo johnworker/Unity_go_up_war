@@ -2,18 +2,29 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerProjectile : Projectile
+namespace Herohunk
 {
-    // 取得子彈軌跡組件
-    TrailRenderer trail;
-
-    private void Awake()
+    public class PlayerProjectile : Projectile
     {
-        trail = GetComponentInChildren<TrailRenderer>();
-    }
+        // 取得子彈軌跡組件
+        TrailRenderer trail;
 
-    private void OnDisable()
-    {
-        trail.Clear();
+        private void Awake()
+        {
+            trail = GetComponentInChildren<TrailRenderer>();
+
+            // 當子彈不是往下飛
+            if (moveDirection != Vector2.up)
+            {
+                // 四位元.根據開始與結束方向返回一個旋轉值(開始方向,結束方向);
+                transform.rotation = Quaternion.FromToRotation(Vector2.up, moveDirection);
+            }
+
+        }
+
+        private void OnDisable()
+        {
+            trail.Clear();
+        }
     }
 }

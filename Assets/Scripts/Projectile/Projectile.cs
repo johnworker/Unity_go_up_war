@@ -2,25 +2,28 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Projectile : MonoBehaviour
+namespace Herohunk
 {
-    [SerializeField, Header("子彈速度")]
-    float moveSpeed = 10f;
-    [SerializeField, Header("子彈移動方向")]
-    Vector2 moveDirection;
-
-    private void OnEnable()
+    public class Projectile : MonoBehaviour
     {
-        StartCoroutine(MoveDirectly());
-    }
+        [SerializeField, Header("子彈速度")]
+        float moveSpeed = 10f;
+        [SerializeField, Header("子彈移動方向")]
+        protected Vector2 moveDirection;
 
-    IEnumerator MoveDirectly()
-    {
-        while (gameObject.activeSelf)
+        private void OnEnable()
         {
-            transform.Translate(moveDirection * moveSpeed * Time.deltaTime);
+            StartCoroutine(MoveDirectly());
+        }
 
-            yield return null;
+        IEnumerator MoveDirectly()
+        {
+            while (gameObject.activeSelf)
+            {
+                transform.Translate(moveDirection * moveSpeed * Time.deltaTime);
+
+                yield return null;
+            }
         }
     }
 }

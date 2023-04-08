@@ -1,12 +1,15 @@
 using UnityEngine;
 
-public class Singleton<T> : MonoBehaviour where T : Component
+namespace Herohunk
 {
-    // 聲明靜態半行實例
-    public static T Instance { get; private set; }
-
-    protected virtual void Awake()
+    public class Singleton<T> : MonoBehaviour where T : Component
     {
-        Instance = this as T;
+        // 聲明靜態半行實例
+        public static T Instance { get; private set; }
+
+        protected virtual void Awake()
+        {
+            Instance = this as T;
+        }
     }
 }
