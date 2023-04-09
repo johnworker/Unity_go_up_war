@@ -5,10 +5,23 @@ using UnityEngine;
 namespace Herohunk
 {
     [RequireComponent(typeof(Rigidbody2D))]
-    public class Player : MonoBehaviour
+    public class Player : Character
     {
+        [SerializeField, Header("是否再生(生命值)")]
+        bool regenerateHealth = true;
+
+        [SerializeField, Header("(生命值)再生時間")]
+        float healthRegenerateTime;
+
+        [SerializeField, Header("(生命值)再生百分比"),Range(0f, 1f)]
+        float healthRegeneratePercent;
+
+        [Header("--- 輸入 ---")]
+
         [SerializeField]
         PlayerInput input;
+
+        [Header("--- 移動 ---")]
 
         [SerializeField]
         float moveSpeed = 5f;
@@ -25,6 +38,8 @@ namespace Herohunk
         float paddingX = 0.6f;
         [SerializeField]
         float paddingY = 0.6f;
+
+        [Header("--- 開火 ---")]
 
         [SerializeField, Header("子彈預置")]
         GameObject projectile;
@@ -53,9 +68,14 @@ namespace Herohunk
         [SerializeField, Header("間格等待時間")]
         WaitForSeconds waitForFireInterval;
 
+        [Header("等待生命恢復時間")]
+        WaitForSeconds waitHealthRegenerateTime;
+
         new Rigidbody2D rigidbody;
 
         Coroutine moveCoroutine;
+
+        Coroutine healthRegenerateCoroutine;
 
 
         private void Awake()
@@ -64,8 +84,10 @@ namespace Herohunk
             // Viewport.Instance 即可取得實例
         }
 
-        private void OnEnable()
+        protected override void OnEnable()
         {
+            base.OnEnable();
+
             input.onMove += Move;
             input.onStopMove += StopMove;
             input.onFire += Fire;
@@ -86,8 +108,28 @@ namespace Herohunk
             rigidbody.gravityScale = 0f;
             // 初始化 間格發射時間
             waitForFireInterval = new WaitForSeconds(fireInterval);
+            waitHealthRegenerateTime = new WaitForSeconds(healthRegenerateTime);
 
             input.OnEnableGameplayInput();
+
+            TakeDamage(50f);
+        }
+
+        public override void TakeDamage(float damage)
+        {
+            base.TakeDamage(damage);
+
+            if (gameObject.activeSelf)
+            {
+                if (regenerateHealth)
+                {
+                    if(healthRegenerateCoroutine != null)
+                    {
+                        StopCoroutine(healthRegenerateCoroutine);
+                    }
+                    healthRegenerateCoroutine = StartCoroutine(HealthRegenerateCoroutine(waitHealthRegenerateTime, healthRegeneratePercent));
+                }
+            }
         }
 
         #region 移動

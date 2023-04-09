@@ -11,7 +11,9 @@ namespace Herohunk
         [SerializeField, Header("子彈移動方向")]
         protected Vector2 moveDirection;
 
-        private void OnEnable()
+        protected GameObject target;
+
+        protected virtual void OnEnable()
         {
             StartCoroutine(MoveDirectly());
         }

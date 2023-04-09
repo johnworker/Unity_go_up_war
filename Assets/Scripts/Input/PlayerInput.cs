@@ -54,14 +54,14 @@ namespace Herohunk
 
         public void OnMove(InputAction.CallbackContext context)
         {
-            if(context.phase == InputActionPhase.Performed)
+            if(context.performed)
             {
                 // 永遠不為空就不需要再做空值檢查
                 // if(OnMove != null)
                 onMove.Invoke(context.ReadValue<Vector2>());
             }
 
-            if(context.phase == InputActionPhase.Canceled)
+            if(context.canceled)
             {
                 onStopMove.Invoke();
             }
@@ -69,14 +69,14 @@ namespace Herohunk
 
         public void OnFire(InputAction.CallbackContext context)
         {
-            if (context.phase == InputActionPhase.Performed)
+            if (context.performed)
             {
                 // 永遠不為空就不需要再做空值檢查
                 // if(OnMove != null)
                 onFire.Invoke();
             }
 
-            if (context.phase == InputActionPhase.Canceled)
+            if (context.canceled)
             {
                 onStopFire.Invoke();
             }
