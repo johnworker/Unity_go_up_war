@@ -12,6 +12,8 @@ namespace Herohunk
         Pool[] playerProjectilePools;
         [SerializeField, Header("敵人子彈對象池")]
         Pool[] enemyProjectilePools;
+        [SerializeField]
+        Pool[] vFXPools;
 
         // 字典<預置物, 字典的值> 名字;
         static Dictionary<GameObject, Pool> dictionary;
@@ -22,6 +24,7 @@ namespace Herohunk
 
             Initialize(playerProjectilePools);
             Initialize(enemyProjectilePools);
+            Initialize(vFXPools);
         }
 
 #if UNITY_EDITOR
@@ -29,6 +32,7 @@ namespace Herohunk
         {
             CheckPoolSize(playerProjectilePools);
             CheckPoolSize(enemyProjectilePools);
+            CheckPoolSize(vFXPools);
         }
 #endif
 

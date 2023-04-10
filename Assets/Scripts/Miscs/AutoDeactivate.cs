@@ -1,42 +1,34 @@
 using System.Collections;
 using UnityEngine;
 
-namespace Herohunk
+public class AutoDeactivate : MonoBehaviour
 {
-    public class AutoDeactivate : MonoBehaviour
+    [SerializeField] bool destroyGameObject;
+    [SerializeField] float lifetime = 3f;
+
+    WaitForSeconds waitLifetime;
+
+    void Awake()
     {
-        [SerializeField, Header("摧毀物件")]
-        bool destoryGameObject;
+        waitLifetime = new WaitForSeconds(lifetime);
+    }
 
-        [SerializeField, Header("生命週期時間")]
-        float lifetime = 3f;
+    void OnEnable()
+    {
+        StartCoroutine(DeactivateCoroutine());
+    }
 
-        [Header("等待生命週期")]
-        WaitForSeconds waitLifetime;
+    IEnumerator DeactivateCoroutine()
+    {
+        yield return waitLifetime;
 
-        private void Awake()
+        if (destroyGameObject)
         {
-            waitLifetime = new WaitForSeconds(lifetime);
+            Destroy(gameObject);
         }
-
-        private void OnEnable()
+        else 
         {
-            StartCoroutine(DeactivateCoroutine());
-        }
-
-        IEnumerator DeactivateCoroutine()
-        {
-            yield return waitLifetime;
-
-            if (destoryGameObject)
-            {
-                Destroy(gameObject);
-            }
-
-            else
-            {
-                gameObject.SetActive(false);
-            }
+            gameObject.SetActive(false);
         }
     }
 }

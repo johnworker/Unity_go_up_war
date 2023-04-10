@@ -174,7 +174,7 @@ namespace Herohunk
 
             while(t < time)
             {
-                t += Time.fixedDeltaTime / time;
+                t += Time.fixedDeltaTime;
                 rigidbody.velocity = Vector2.Lerp(rigidbody.velocity, moveVelocity, t / time);
                 transform.rotation = Quaternion.Lerp(transform.rotation, moveRotation, t / time);
 
