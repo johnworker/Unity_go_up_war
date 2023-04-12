@@ -52,11 +52,6 @@ namespace Herohunk
             }
         }
 
-        internal static void Release(GameObject hitVFX, Vector2 point, Quaternion quaternion)
-        {
-            throw new NotImplementedException();
-        }
-
         // 初始方法(池 陣列 參數名)
         private void Initialize(Pool[] pools)
         {
@@ -80,11 +75,6 @@ namespace Herohunk
 
                 pool.Initialize(poolParent);
             }
-        }
-
-        internal static void Release(GameObject projectile, Vector3 position)
-        {
-            throw new NotImplementedException();
         }
 
         /// <summary>

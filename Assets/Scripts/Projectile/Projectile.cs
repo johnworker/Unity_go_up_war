@@ -1,5 +1,4 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 namespace Herohunk
@@ -33,7 +32,7 @@ namespace Herohunk
             }
         }
 
-        private void OnCollisionEnter2D(Collision2D collision)
+        protected virtual void OnCollisionEnter2D(Collision2D collision)
         {
             if(collision.gameObject.TryGetComponent<Character>(out Character character))
             {
@@ -41,8 +40,8 @@ namespace Herohunk
 
                 // var contactPoint = collision.GetContact(0);
                 // PoolManager.Release(hitVFX, contactPoint.point, Quaternion.LookRotation(contactPoint.normal));
-                // °ı¶X®÷¡Yºg
-                PoolManager.Release(hitVFX, collision.GetContact(0).point, Quaternion.LookRotation(collision.GetContact(0).normal));
+                // °ı¶X®÷¡Yºg    // °ı¶≥BUG
+                PoolManager.Release(hitVFX, collision.GetContact(0).point, Quaternion.LookRotation(collision.GetContact(0).normal), transform.position);
                 gameObject.SetActive(false);
             }
         }

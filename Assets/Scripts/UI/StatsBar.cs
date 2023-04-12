@@ -7,13 +7,25 @@ namespace Herohunk
 {
     public class StatsBar : MonoBehaviour
     {
-        Image fillImageBack;
+        [SerializeField, Header("後方狀態條")] Image fillImageBack;
 
-        Image fillImageFront;
+        [SerializeField, Header("前方狀態條")] Image fillImageFront;
 
-        float currentFillAmount;
+        [SerializeField, Header("是否延遲填充")] bool delayFill = true;
+        
+        [SerializeField, Header("延遲填充時間")] float fillDelay = 0.5f;
 
-        float targetFillAmount;
+        [SerializeField, Header("狀態條填充速度")] float fillSpeed = 0.1f;
+
+        [Header("當前狀態條值")] float currentFillAmount;
+
+        [Header("目標狀態條值")] float targetFillAmount;
+
+        float t;
+
+        WaitForSeconds waitForDelayFill;
+
+        Coroutine bufferedFillingCoroutine;
 
         Canvas canvas;
 
@@ -21,11 +33,64 @@ namespace Herohunk
         {
             canvas = GetComponent<Canvas>();
             canvas.worldCamera = Camera.main;
+
+            waitForDelayFill = new WaitForSeconds(fillDelay);
         }
 
         public void Initialize(float currentValue, float maxValue)
         {
-            
+            currentFillAmount = currentValue / maxValue;
+            targetFillAmount = currentFillAmount;
+            fillImageBack.fillAmount = currentFillAmount;
+            fillImageFront.fillAmount = currentFillAmount;
+        }
+
+        public void UpdateStats(float currentValue, float maxValue)
+        {
+            targetFillAmount = currentValue / maxValue;
+
+            if (bufferedFillingCoroutine != null)
+            {
+                StopCoroutine(bufferedFillingCoroutine);
+            }
+
+            // 如果狀態減少
+            if(currentFillAmount > targetFillAmount)
+            {
+                // 前面圖片填充值 = 目標填充值
+                fillImageFront.fillAmount = targetFillAmount;
+                // 後面圖片填充值慢慢減少
+                bufferedFillingCoroutine = StartCoroutine(BufferedFillingCoroutine(fillImageBack));
+            }
+
+            // 如果狀態增加
+            if(currentFillAmount < targetFillAmount)
+            {
+                // 後面圖片填充值 = 目標填充值
+                fillImageBack.fillAmount = targetFillAmount;
+                // 前面圖片填充值慢慢增加
+                bufferedFillingCoroutine = StartCoroutine(BufferedFillingCoroutine(fillImageFront));
+            }
+        }
+
+        // 緩沖填充協程
+        IEnumerator BufferedFillingCoroutine(Image image)
+        {
+            if (delayFill)
+            {
+                yield return waitForDelayFill;
+            }
+
+            t = 0f;
+
+            while(t < 1f)
+            {
+                t += Time.deltaTime * fillSpeed;
+                currentFillAmount = Mathf.Lerp(currentFillAmount, targetFillAmount, t);
+                image.fillAmount = currentFillAmount;
+
+                yield return null;
+            }
         }
     }
 }

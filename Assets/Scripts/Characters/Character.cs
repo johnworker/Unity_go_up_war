@@ -12,6 +12,8 @@ namespace Herohunk
 
         [SerializeField, Header("最大生命值")] protected float maxHealth;
 
+        [SerializeField, Header("頭上生命血條")] StatsBar onHeadHealthBar;
+
         [Header("當前生命值")] protected float health;
 
         protected virtual void OnEnable()
@@ -32,7 +34,8 @@ namespace Herohunk
         public virtual void Die()
         {
             health = 0f;
-            PoolManager.Release(deathVFX, transform.position);
+            // ↓有BUG
+            PoolManager.Release(deathVFX, transform.position, Quaternion.identity, transform.position);
             gameObject.SetActive(false);
         }
 
