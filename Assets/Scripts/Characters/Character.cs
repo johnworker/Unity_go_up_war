@@ -21,20 +21,35 @@ namespace Herohunk
         protected virtual void OnEnable()
         {
             health = maxHealth;
+
+            if (showOnHeadHealthBar)
+            {
+                ShowOnHeadHealthBar();
+            }
+            else
+            {
+                HideOnHeadHealthBar();
+            }
         }
 
         public void ShowOnHeadHealthBar()
         {
             onHeadHealthBar.gameObject.SetActive(true);
+            onHeadHealthBar.Initialize(health, maxHealth);
         }
         public void HideOnHeadHealthBar()
         {
-
+            onHeadHealthBar.gameObject.SetActive(false);
         }
 
         public virtual void TakeDamage(float damage)
         {
             health -= damage;
+
+            if (showOnHeadHealthBar)
+            {
+                onHeadHealthBar.UpdateStats(health, maxHealth);
+            }
 
             if(health <= 0f)
             {
@@ -59,6 +74,12 @@ namespace Herohunk
 
             // 將上方註釋代碼合併 (此句目的是為了防止溢出)
             health = Mathf.Clamp(health + value, 0f, maxHealth);
+
+            if (showOnHeadHealthBar)
+            {
+                onHeadHealthBar.UpdateStats(health, maxHealth);
+            }
+
         }
 
         // 定義一段時間會持續恢復角色生命值的協程
