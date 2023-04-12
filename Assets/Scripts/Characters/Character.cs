@@ -12,6 +12,8 @@ namespace Herohunk
 
         [SerializeField, Header("最大生命值")] protected float maxHealth;
 
+        [SerializeField, Header("頭上生命血條是否顯示")] bool showOnHeadHealthBar = true;
+
         [SerializeField, Header("頭上生命血條")] StatsBar onHeadHealthBar;
 
         [Header("當前生命值")] protected float health;
@@ -19,6 +21,15 @@ namespace Herohunk
         protected virtual void OnEnable()
         {
             health = maxHealth;
+        }
+
+        public void ShowOnHeadHealthBar()
+        {
+            onHeadHealthBar.gameObject.SetActive(true);
+        }
+        public void HideOnHeadHealthBar()
+        {
+
         }
 
         public virtual void TakeDamage(float damage)
