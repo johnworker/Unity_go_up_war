@@ -19,7 +19,7 @@ namespace Herohunk
 
         [Header("當前狀態條值")] float currentFillAmount;
 
-        [Header("目標狀態條值")] float targetFillAmount;
+        [Header("目標狀態條值")] protected float targetFillAmount;
 
         float t;
 
@@ -37,7 +37,7 @@ namespace Herohunk
             waitForDelayFill = new WaitForSeconds(fillDelay);
         }
 
-        public void Initialize(float currentValue, float maxValue)
+        public virtual void Initialize(float currentValue, float maxValue)
         {
             currentFillAmount = currentValue / maxValue;
             targetFillAmount = currentFillAmount;
@@ -74,7 +74,7 @@ namespace Herohunk
         }
 
         // 緩沖填充協程
-        IEnumerator BufferedFillingCoroutine(Image image)
+        protected virtual IEnumerator BufferedFillingCoroutine(Image image)
         {
             if (delayFill)
             {

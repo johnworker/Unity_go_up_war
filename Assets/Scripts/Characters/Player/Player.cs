@@ -7,6 +7,8 @@ namespace Herohunk
     [RequireComponent(typeof(Rigidbody2D))]
     public class Player : Character
     {
+        [SerializeField] StatsBar_HUD statsBar_HUD;
+
         [SerializeField, Header("是否再生(生命值)")]
         bool regenerateHealth = true;
 
@@ -110,6 +112,8 @@ namespace Herohunk
             waitForFireInterval = new WaitForSeconds(fireInterval);
             waitHealthRegenerateTime = new WaitForSeconds(healthRegenerateTime);
 
+            statsBar_HUD.Initialize(health, maxHealth);
+
             input.OnEnableGameplayInput();
 
             TakeDamage(50f);
@@ -118,6 +122,7 @@ namespace Herohunk
         public override void TakeDamage(float damage)
         {
             base.TakeDamage(damage);
+            statsBar_HUD.UpdateStats(health, maxHealth);
 
             if (gameObject.activeSelf)
             {
@@ -130,6 +135,19 @@ namespace Herohunk
                     healthRegenerateCoroutine = StartCoroutine(HealthRegenerateCoroutine(waitHealthRegenerateTime, healthRegeneratePercent));
                 }
             }
+        }
+
+        public override void RestoreHealth(float value)
+        {
+            base.RestoreHealth(value);
+            statsBar_HUD.UpdateStats(health, maxHealth);
+
+        }
+
+        public override void Die()
+        {
+            statsBar_HUD.UpdateStats(0f, maxHealth);
+            base.Die();
         }
 
         #region 移動
