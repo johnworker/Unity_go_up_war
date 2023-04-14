@@ -99,12 +99,12 @@ namespace Herohunk
             return preparedObject;
         }
 
-        /*
+        
         // 聲明 返回(遊戲物件)
         public void Return(GameObject gameObject)
         {
             queue.Enqueue(gameObject);
         }
-        */
+        
     }
 }

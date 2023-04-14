@@ -46,7 +46,7 @@ namespace Herohunk
         {
             health -= damage;
 
-            if (showOnHeadHealthBar)
+            if (showOnHeadHealthBar && gameObject.activeSelf)
             {
                 onHeadHealthBar.UpdateStats(health, maxHealth);
             }

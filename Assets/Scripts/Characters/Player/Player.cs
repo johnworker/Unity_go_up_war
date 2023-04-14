@@ -116,7 +116,7 @@ namespace Herohunk
 
             input.OnEnableGameplayInput();
 
-            TakeDamage(50f);
+            // TakeDamage(50f);
         }
 
         public override void TakeDamage(float damage)

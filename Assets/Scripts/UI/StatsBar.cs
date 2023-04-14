@@ -37,6 +37,11 @@ namespace Herohunk
             waitForDelayFill = new WaitForSeconds(fillDelay);
         }
 
+        private void OnDisable()
+        {
+            StopAllCoroutines();
+        }
+
         public virtual void Initialize(float currentValue, float maxValue)
         {
             currentFillAmount = currentValue / maxValue;
@@ -61,6 +66,8 @@ namespace Herohunk
                 fillImageFront.fillAmount = targetFillAmount;
                 // 後面圖片填充值慢慢減少
                 bufferedFillingCoroutine = StartCoroutine(BufferedFillingCoroutine(fillImageBack));
+
+                return;
             }
 
             // 如果狀態增加
