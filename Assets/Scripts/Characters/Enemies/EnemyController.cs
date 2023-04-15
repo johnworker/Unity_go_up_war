@@ -79,7 +79,7 @@ namespace Herohunk
 
                 foreach (var projectile in projectiles)
                 {
-                    PoolManager.Release(projectile, muzzle.position, Quaternion.identity, muzzle.localPosition);
+                    PoolManager.Release(projectile, muzzle.position, Quaternion.identity, muzzle.localPosition.normalized);
                 }
             }
         }

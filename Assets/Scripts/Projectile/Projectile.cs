@@ -41,7 +41,7 @@ namespace Herohunk
                 // var contactPoint = collision.GetContact(0);
                 // PoolManager.Release(hitVFX, contactPoint.point, Quaternion.LookRotation(contactPoint.normal));
                 // °ı¶X®÷¡Yºg    // °ı¶≥BUG
-                PoolManager.Release(hitVFX, collision.GetContact(0).point, Quaternion.LookRotation(collision.GetContact(0).normal), transform.position);
+                PoolManager.Release(hitVFX, collision.GetContact(0).point, Quaternion.LookRotation(collision.GetContact(0).normal), transform.localPosition);
                 gameObject.SetActive(false);
             }
         }
