@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace Herohunk
 {
-    public class PlayerEnergy : MonoBehaviour
+    public class PlayerEnergy : Singleton<PlayerEnergy>
     {
         [SerializeField] EnergyBar energyBar;
 
@@ -34,9 +34,13 @@ namespace Herohunk
             energy -= value;
         }
 
+        /*
         public bool IsEnough(int value)
         {
             return energy >= value;
         }
+        */
+
+        public bool IsEnough(int value) => energy >= value;
     }
 }

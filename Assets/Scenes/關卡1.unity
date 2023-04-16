@@ -744,7 +744,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8ad659c1ba0b3744b97fd13cb6a0a110, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  energyBar: {fileID: 0}
+  energyBar: {fileID: 169127002}
 --- !u!1 &380819755
 GameObject:
   m_ObjectHideFlags: 0
@@ -1245,6 +1245,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 756025588, guid: 2ab3ff156c8f1c149a4d4fe513936685, type: 3}
+      propertyPath: deathEnergyBonus
+      value: 4
+      objectReference: {fileID: 0}
     - target: {fileID: 756025590, guid: 2ab3ff156c8f1c149a4d4fe513936685, type: 3}
       propertyPath: m_Size.x
       value: 1.65
@@ -2281,6 +2285,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1716982409, guid: a624a0e3000461e4286965f8a65aedb6, type: 3}
+      propertyPath: deathEnergyBonus
+      value: 5
+      objectReference: {fileID: 0}
     - target: {fileID: 214778051926960353, guid: a624a0e3000461e4286965f8a65aedb6, type: 3}
       propertyPath: m_RootOrder
       value: 4
